@@ -3,9 +3,9 @@ const operationButtons = document.querySelectorAll('[data-operation]');
 const equalsButton = document.querySelector('[data-equals]');
 const deleteButton = document.querySelector('[data-delete]')
 const allClearButton = document.querySelector('[data-all-clear]')
-const displayValue = document.querySelector('[data-display-value]')
-const buttons = document.querySelectorAll('button');
-
+//const displayValue = document.querySelector('[data-display-value]')
+//const buttons = document.querySelectorAll('button');
+const output = document.querySelector('.output')
 
 function Calculator(){
     this.add = (num1, num2)=>{
@@ -23,22 +23,42 @@ function Calculator(){
         }
         console.log(num1 / num2)
     }
-    this.operate = (operator, num1,num2)=>{
+    this.clear = ()=>{
+        allClearButton.addEventListener('click',()=>{
+            displayValue = ''
+        })
         
-        if(operator === '+'){
-        add.add(num1,num2)
     }
-    if(operator === '-'){
-        subtract.subtract(num1,num2)
+    this.operate = (operator, num1,num2)=>{
+        operationButtons.forEach(button=>{
+            button.addEventListener('click',()=>{
+                console.log(button.innerText)
+                operator = button.innerText
+
+                if(operator === '+'){
+                    add.add(num1,num2)
+                }
+                if(operator === '-'){
+                    subtract.subtract(num1,num2)
+                }
+                if(operator === '*'){
+                    subtract.multiply(num1,num2)
+                }
+                if(operator === '/'){
+                    subtract.divide(num1,num2)
+                }
+                output.textContent = operator
+            })
+        })
+        
     }
-    if(operator === '*'){
-        subtract.multiply(num1,num2)
+    this.appendNumber = (number)=>{
+        const displayValue = output.textContent;
+        if(displayValue.length < 10){
+            output.textContent = parseInt(displayValue + number).toString();
+            console.log(displayValue)
+        }
     }
-    if(operator === '/'){
-        subtract.divide(num1,num2)
-    }
-    }
-    this.numbers
 }
 const add = new Calculator()
 //add.add(5,2)
@@ -55,21 +75,22 @@ const divide = new Calculator()
 const operate = new Calculator()
 //console.log(operate.operate('*',5,7))
 
-//function to populate the display
-//target all number buttons and the value is the input like rps using for each
-//create display value in a variable
+const appendNumber = new Calculator()
 
-//get value of each button and then assign with corresponding number
-//display value == input
+const clear = new Calculator()
+clear.clear()
 
 const populateDisplay = () =>{
-    
-}
-//displayValue = ''
-buttons.forEach(button=>{
-    button.addEventListener('click', ()=>{
-        console.log(button.innerText)
+    let displayValue = ''
+    numberButtons.forEach(button=>{
+        button.addEventListener('click', ()=>{
+            //console.log(button.innerText)
+            appendNumber.appendNumber(button.textContent)
+            //output.textContent = displayValue
+        })
+        
     })
-})
+}
+populateDisplay()
 
 console.log(operate.operate('*',5,2))
