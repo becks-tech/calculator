@@ -3,25 +3,17 @@ const operationButtons = document.querySelectorAll('[data-operation]');
 const equalsButton = document.querySelector('[data-equals]');
 const deleteButton = document.querySelector('[data-delete]')
 const allClearButton = document.querySelector('[data-all-clear]')
-//const displayValue = document.querySelector('[data-display-value]')
-//const buttons = document.querySelectorAll('button');
 const output = document.querySelector('.output')
 
 function Calculator(){
-    this.add = (num1, num2)=>{
-        console.log(num1 + num2)
-    }
-    this.subtract = (num1,num2)=>{
-        console.log(num1 - num2)
-    }
-    this.multiply = (num1,num2)=>{
-        console.log(num1 * num2)
-    }
-    this.divide = (num1,num2)=>{
-        if(num1 == 0 || num2 == 0){
-            alert('Invalid operation! Try again.')
-        }
-        console.log(num1 / num2)
+    
+    this.populateDisplay = ()=>{
+        numberButtons.forEach(button=>{
+        button.addEventListener('click', ()=>{
+            displayValue = appendNumber.appendNumber(button.textContent)
+        })
+        
+    })
     }
     this.clear = ()=>{
         allClearButton.addEventListener('click',()=>{
@@ -29,68 +21,66 @@ function Calculator(){
         })
         
     }
-    this.operate = (operator, num1,num2)=>{
+    this.operate = (operator, num1, num2)=>{
         operationButtons.forEach(button=>{
             button.addEventListener('click',()=>{
-                console.log(button.innerText)
-                operator = button.innerText
-
+               operator = button.innerText
+               prevOperand = displayValue
+               console.log(prevOperand)
                 if(operator === '+'){
-                    add.add(num1,num2)
+                    result = num1 + num2
                 }
                 if(operator === '-'){
-                    subtract.subtract(num1,num2)
+                    result = num1 - num2
                 }
                 if(operator === '*'){
-                    subtract.multiply(num1,num2)
+                    result = num1 * num2
                 }
                 if(operator === '/'){
-                    subtract.divide(num1,num2)
+                    result = num1 / num2
                 }
-                output.textContent = operator
+               output.textContent = operator 
+                console.log(output.textContent)
             })
         })
         
     }
     this.appendNumber = (number)=>{
-        const displayValue = output.textContent;
+        let displayValue = output.textContent;
         if(displayValue.length < 10){
-            output.textContent = parseInt(displayValue + number).toString();
+            output.textContent = parseFloat(displayValue + number).toString();
+            displayValue = output.textContent
             console.log(displayValue)
         }
     }
+    this.equals = ()=>{
+        equalsButton.addEventListener('click',()=>{
+        
+            
+        })
+    }
+
 }
-const add = new Calculator()
-//add.add(5,2)
-
-const subtract = new Calculator()
-//subtract.subtract(3,5)
-
-const multiply = new Calculator()
-//multiply.multiply(5,2)
-
-const divide = new Calculator()
-//divide.divide(1,2)
 
 const operate = new Calculator()
-//console.log(operate.operate('*',5,7))
+console.log(operate.operate('*',5,7))
 
 const appendNumber = new Calculator()
 
+//clear btn not working yet
 const clear = new Calculator()
 clear.clear()
 
-const populateDisplay = () =>{
-    let displayValue = ''
-    numberButtons.forEach(button=>{
-        button.addEventListener('click', ()=>{
-            //console.log(button.innerText)
-            appendNumber.appendNumber(button.textContent)
-            //output.textContent = displayValue
-        })
-        
-    })
-}
-populateDisplay()
 
-console.log(operate.operate('*',5,2))
+const populateDisplay = new Calculator()
+populateDisplay.populateDisplay()
+
+const equals = new Calculator()
+equals.equals()
+
+//console.log(operate.operate('+',5,2))
+
+//save display value to num1
+//save chosen operator
+//calculate result based on display value after operator has been chosen 
+// .
