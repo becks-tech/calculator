@@ -1,30 +1,90 @@
+const numberButtons = document.querySelectorAll('[data-number]');
+const operationButtons = document.querySelectorAll('[data-operation]');
+const deleteButton = document.querySelector('[data-delete]')
+const allClearButton = document.querySelector('[data-all-clear]')
+const output = document.querySelector('.output')
+const decimal = document.querySelector('[data-decimal]')
 
-
-function Calculator(){
-    this.add = (num1, num2)=>{
-        console.log(num1 + num2)
-    }
-    this.subtract = (num1,num2)=>{
-        console.log(num1 - num2)
-    }
-    this.multiply = (num1,num2)=>{
-        console.log(num1 * num2)
-    }
-    this.divide = (num1,num2)=>{
-        if(num1 == 0 || num2 == 0){
-            alert('Invalid operation! Try again.')
+let operator = '';
+let num1 = '';
+let num2 = '';
+    
+numberButtons.forEach(numberButton=>{
+    numberButton.addEventListener('click',(e)=>{
+        if (operator === ''){
+            num1 += e.target.innerText
+            output.textContent = num1
         }
-        console.log(num1 / num2)
-    }
+        else{
+            decimal.disabled = false;
+            num2 += e.target.innerText
+            output.textContent = num2
+        }
+    })
+        
+})
+allClearButton.addEventListener('click',()=>{
+    output.textContent = ''
+    operator = ''
+    num1 = ''
+    num2 = ''
+    decimal.disabled = false;
+})
+
+deleteButton.addEventListener('click', ()=>{
+            
+})
+
+        
+operationButtons.forEach(opButton=>{
+    opButton.addEventListener('click',(e)=>{
+                
+        if(e.target.innerText !== '=' || e.target.innerText === '+' || e.target.innerText === '-' || e.target.innerText === 'x' || e.target.innerText === '/'){
+        operator = e.target.innerText;
+                
+        console.log('num1 '+num1)
+        console.log(operator)
+        output.textContent = operator
+        num2 = ''
+        } 
+        else {
+        console.log('num2 '+num2)
+        //maybe try using another if to re assign num1 only when an operator has already been selected
+        //this way, it indicates it is not the first calculation and num1 needs to be given the result of the 
+        //previous calculation 
+        //decimal.disabled = false;
+        switch(operator) {
+            case '+':
+                result = parseFloat(num1) + parseFloat(num2)
+                break;
+            case '-':
+                result = parseFloat(num1) - parseFloat(num2)
+                break;
+            case 'x':
+                result = parseFloat(num1) * parseFloat(num2)
+                break;
+            case '/':
+                if (num2 === 0) {
+                    result = 'silly'
+                } 
+                result = parseFloat(num1) / parseFloat(num2)
+                    
+                break;
+                    default:
+                    break;
+            }
+        
+            output.textContent = parseFloat(result)
+        }   
+                
+    })
+})
+const disableButton = ()=>{
+    decimal.disabled = true;
 }
-const add = new Calculator()
-add.add(5,2)
-
-const subtract = new Calculator()
-subtract.subtract(3,5)
-
-const multiply = new Calculator()
-multiply.multiply(5,2)
-
-const divide = new Calculator()
-divide.divide(1,2)
+decimal.addEventListener('click', disableButton)
+        
+    
+//message when dividing by 0
+//chain operations
+//round results
