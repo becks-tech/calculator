@@ -32,7 +32,13 @@ allClearButton.addEventListener('click',()=>{
 })
 
 deleteButton.addEventListener('click', ()=>{
-            
+    if(num1 !==0){
+        num1 = num1.slice(0,num1.length -1)
+        output.textContent = num1
+    } else{
+        num2 = num2.slice(0,num2.length - 1)
+        output.textContent = num2
+    }   
 })
 
         
@@ -64,17 +70,18 @@ operationButtons.forEach(opButton=>{
                 result = parseFloat(num1) * parseFloat(num2)
                 break;
             case '/':
-                if (num2 === 0) {
-                    result = 'silly'
+                if (num2 !== 0) {
+                    result = parseFloat(num1) / parseFloat(num2)
                 } 
-                result = parseFloat(num1) / parseFloat(num2)
+                result = 'silly'
+                
                     
                 break;
                     default:
                     break;
             }
         
-            output.textContent = parseFloat(result)
+            output.textContent = result
         }   
                 
     })
@@ -84,7 +91,6 @@ const disableButton = ()=>{
 }
 decimal.addEventListener('click', disableButton)
         
-    
-//message when dividing by 0
+//delete button
 //chain operations
 //round results
