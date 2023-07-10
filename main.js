@@ -32,13 +32,13 @@ allClearButton.addEventListener('click',()=>{
 })
 
 deleteButton.addEventListener('click', ()=>{
-    if(num1 !==0){
+    //deleting from both numbers 
         num1 = num1.slice(0,num1.length -1)
         output.textContent = num1
-    } else{
-        num2 = num2.slice(0,num2.length - 1)
-        output.textContent = num2
-    }   
+    
+   
+        num2 = num2.slice(0, num2.length - 1)
+        output.textContent = num2 
 })
 
         
@@ -51,9 +51,10 @@ operationButtons.forEach(opButton=>{
         console.log('num1 '+num1)
         console.log(operator)
         output.textContent = operator
-        num2 = ''
-        } 
+        //num2 = ''
+        }
         else {
+        
         console.log('num2 '+num2)
         //maybe try using another if to re assign num1 only when an operator has already been selected
         //this way, it indicates it is not the first calculation and num1 needs to be given the result of the 
@@ -72,8 +73,7 @@ operationButtons.forEach(opButton=>{
             case '/':
                 if (num2 !== 0) {
                     result = parseFloat(num1) / parseFloat(num2)
-                } 
-                result = 'silly'
+                } result = 'silly'
                 
                     
                 break;
@@ -81,8 +81,12 @@ operationButtons.forEach(opButton=>{
                     break;
             }
         
-            output.textContent = result
         }   
+        if (result !== ''){ //if there is already a result, ie if a calculation has already be performed
+            num1 = result //assign the result from prev calculation to number one
+            num2 = '' //clear num2 to complete calculation as per normal 
+        }
+        output.textContent = parseFloat(result)
                 
     })
 })
@@ -90,7 +94,6 @@ const disableButton = ()=>{
     decimal.disabled = true;
 }
 decimal.addEventListener('click', disableButton)
-        
-//delete button
+    
 //chain operations
 //round results
