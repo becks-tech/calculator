@@ -28,6 +28,7 @@ allClearButton.addEventListener('click',()=>{
     operator = ''
     num1 = ''
     num2 = ''
+    result = ''
     decimal.disabled = false;
 })
 
@@ -36,7 +37,6 @@ deleteButton.addEventListener('click', ()=>{
         num1 = num1.slice(0,num1.length -1)
         output.textContent = num1
     
-   
         num2 = num2.slice(0, num2.length - 1)
         output.textContent = num2 
 })
@@ -45,21 +45,17 @@ deleteButton.addEventListener('click', ()=>{
 operationButtons.forEach(opButton=>{
     opButton.addEventListener('click',(e)=>{
                 
-        if(e.target.innerText !== '=' || e.target.innerText === '+' || e.target.innerText === '-' || e.target.innerText === 'x' || e.target.innerText === '/'){
+        if(e.target.innerText !== '='){
         operator = e.target.innerText;
                 
         console.log('num1 '+num1)
-        console.log(operator)
+        console.log('operator '+operator)
         output.textContent = operator
-        //num2 = ''
+        
         }
         else {
-        
         console.log('num2 '+num2)
-        //maybe try using another if to re assign num1 only when an operator has already been selected
-        //this way, it indicates it is not the first calculation and num1 needs to be given the result of the 
-        //previous calculation 
-        //decimal.disabled = false;
+        decimal.disabled = false;
         switch(operator) {
             case '+':
                 result = parseFloat(num1) + parseFloat(num2)
@@ -71,11 +67,7 @@ operationButtons.forEach(opButton=>{
                 result = parseFloat(num1) * parseFloat(num2)
                 break;
             case '/':
-                if (num2 !== 0) {
-                    result = parseFloat(num1) / parseFloat(num2)
-                } result = 'silly'
-                
-                    
+                num2 === 0 ? output.textContent = '🤣' : result = parseFloat(num1) / parseFloat(num2)
                 break;
                     default:
                     break;
@@ -86,7 +78,7 @@ operationButtons.forEach(opButton=>{
             num1 = result //assign the result from prev calculation to number one
             num2 = '' //clear num2 to complete calculation as per normal 
         }
-        output.textContent = parseFloat(result)
+        output.textContent = parseFloat(Math.round(result * 10000) / 10000)
                 
     })
 })
@@ -95,5 +87,4 @@ const disableButton = ()=>{
 }
 decimal.addEventListener('click', disableButton)
     
-//chain operations
-//round results
+//disable operators after one has been selected per calculation
