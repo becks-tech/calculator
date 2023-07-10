@@ -1,2 +1,2 @@
 # Calculator
-A demonstration of my CSS Grid skills.
+A demonstration of my CSS Grid and vanilla JavaScript skills.
